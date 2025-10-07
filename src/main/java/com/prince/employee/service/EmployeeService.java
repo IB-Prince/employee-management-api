@@ -1,5 +1,6 @@
 package com.prince.employee.service;
 
+import com.prince.employee.exception.ResourceNotFoundException;
 import com.prince.employee.model.Employee;
 import com.prince.employee.repository.EmployeeRepository;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ public class EmployeeService {
     }
 
     public Employee getEmployee(Long id) {
-        return repo.findById(id).orElse(null);
+        return repo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Employee not found with id " + id));
     }
 
     public Employee addEmployee(Employee e) {
